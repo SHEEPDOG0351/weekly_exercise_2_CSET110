@@ -1,12 +1,48 @@
+if (document.readyState == 'loading') {
+    document.addEventListener('DOMContentLoaded', ready)
+} else {
+    ready()
+}
+function ready(){
+    var removeCartItemButtons = document.getElementsByClassName('btn-danger')
+    for (i = 0; i < removeCartItemButtons.length; i++) {
+        var button = removeCartItemButtons[i]
+        button.addEventListener('click', removeCartItemButtons)
+    }
 
-//Ensures the body loads first in the html before the javascript
-document.addEventListener('DOMContentLoaded', function () {
-    // Select all buttons with class 'btn-danger' (the remove buttons)
-    const remove_buttons = document.getElementsByClassName('btn-danger');
+    var quantityInputs = document.getElementsByClassName('cart-quantity-input')
+}
 
+function removeCartItem(event) {
+    var buttonClicked = event.target
+    buttonClicked.parentElement.parentElement.remove()
+    updateCartTotal()
+}
     // Loop through each button and attach the event listener
+    // Used for remove buttons
     for (let i = 0; i < remove_buttons.length; i++) {
         remove_buttons[i].addEventListener('click', remove_items);
+    }
+
+    // Adds add to cart button functionality
+    function add_items(event) {
+
+        // Finds button clicked
+        const add_button_clicked = event.target
+
+        // Access the container div for the row
+        const row_div = document.querySelector('div.cart-row');
+
+        // Add new item before div
+        row_div.insertAdjacentHTML('beforebegin', '');
+
+
+
+        // Add necessary content to the rows class for the new item
+        cart_rows.innerHTML += 
+
+        // Update cart total after addition of new item
+        cartTotal()
     }
 
     function remove_items(event) {
