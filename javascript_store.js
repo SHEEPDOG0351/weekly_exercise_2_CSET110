@@ -11,12 +11,30 @@ function ready(){
     }
 
     var quantityInputs = document.getElementsByClassName('cart-quantity-input')
+    for (i = 0; i < quantityInputs.length; i++) {
+        var input = quantityInputs[i]
+        input.addEventListener('change', quantityChanged)
+    }
+
+    var addToCartButtons = document.getElementsByClassName('shop-item-button')
+    for (i = 0; i < addToCartButtons.length; i++) {
+        var button = addToCartButtons[i]
+        button.addEventListener('click', addToCartClicked)
+    }
 }
 
 function removeCartItem(event) {
     var buttonClicked = event.target
     buttonClicked.parentElement.parentElement.remove()
-    updateCartTotal()
+    cartTotal()
+}
+
+function quantityChanged(event) {
+    var input = event.target
+    if (isNaN(input.value) || input.value <= 0) {
+        input.value = 1
+    }
+    cartTotal()     
 }
     // Loop through each button and attach the event listener
     // Used for remove buttons
@@ -80,8 +98,8 @@ function removeCartItem(event) {
             // Perform calculation for total
             total += price_of_item * quantity;
         }
+        total = Math.round(total * 100) / 100
 
         // Replace total value with the now calculated total price
         document.getElementsByClassName('cart-total-price')[0].innerText = '$' + total.toFixed(2);
     }
-});
